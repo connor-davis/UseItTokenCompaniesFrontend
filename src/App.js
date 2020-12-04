@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react';
+
+import {useSelector} from 'react-redux';
+import {HashRouter} from 'react-router-dom';
+
+import {fetchCollectors, fetchItems} from "./app/utils";
+
+import AuthPage from './app/pages/auth.page';
+import HomePage from './app/pages/home.page';
+
+import {selectUser} from './app/slices/user.slice.js';
+import Notification from "./app/pages/components/notification";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let user = useSelector(selectUser);
+
+    useEffect(() => {
+        if (user.role) {
+            fetchCollectors();
+            fetchItems();
+        }
+    }, [user.role]);
+
+    return (
+        <HashRouter>
+            <Notification/>
+            {
+                user.uid ?
+                    <HomePage/> :
+                    <AuthPage/>
+            }
+        </HashRouter>
+    );
 }
 
 export default App;

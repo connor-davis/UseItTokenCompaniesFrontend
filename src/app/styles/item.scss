@@ -1,0 +1,14 @@
+.modify-item {
+  position: relative;
+  width: auto;
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+}

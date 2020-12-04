@@ -1,0 +1,54 @@
+.auth-page {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+}
+
+a {
+  position: relative;
+  width: auto;
+  height: auto;
+  color: rgba(0, 255, 98, 1);
+  text-decoration: none;
+}
+
+.auth-form {
+  position: absolute;
+  max-width: 400px;
+  max-height: 300px;
+  background: transparent;
+  z-index: 20;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-form button {
+  position: relative;
+  width: auto;
+  height: 30px;
+  background: rgba(0, 255, 98, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 98, 0.5);
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+  color: #ffffff;
+  outline: none;
+  padding: 0 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.auth-form button::before {
+  filter: blur(5px);
+  box-shadow: inset 0 0 100000px rgba(0, 0, 0, 0.5);
+}
