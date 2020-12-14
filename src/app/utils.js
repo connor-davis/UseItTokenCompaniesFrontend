@@ -1,19 +1,19 @@
 import axios from 'axios';
 
-import {store} from "./store";
+import { store } from "./store";
 
-import {setItems} from "./slices/items.slice";
-import {setUser} from "./slices/user.slice.js";
-import {setLoading} from "./slices/loading.slice";
-import {addNotification} from "./slices/notifications.slice";
-import {setCollectors} from "./slices/collector.slice";
+import { setCollectors } from "./slices/collector.slice";
+import { setDeposits } from './slices/deposits.slice';
+import { setItems } from "./slices/items.slice";
+import { addNotification } from "./slices/notifications.slice";
+import { setUser } from "./slices/user.slice.js";
 
 let dispatch = store.dispatch;
 
 function fetchCollectors() {
-    let {user} = store.getState().userReducer;
+    let { user } = store.getState().userReducer;
 
-    axios.get(API_URL + "/collector/", {
+    axios.get(API_URL + "/collector?company=" + user.name, {
         headers: {
             "Authorization": "Bearer " + user.token,
             "secure_secret": user.secure_secret,
@@ -37,9 +37,9 @@ function fetchCollectors() {
 }
 
 function fetchItems() {
-    let {user} = store.getState().userReducer;
+    let { user } = store.getState().userReducer;
 
-    axios.get(API_URL + "/items", {
+    axios.get(API_URL + "/items?company=" + user.name, {
         headers: {
             "Authorization": "Bearer " + user.token,
             "secure_secret": user.secure_secret,
@@ -56,16 +56,27 @@ function fetchItems() {
     });
 }
 
+function fetchDeposits() {
+    let { user } = store.getState().userReducer;
+
+    axios.get(API_URL + "/payment/deposit", {
+        headers: {
+            "Authorization": "Bearer " + user.token,
+        },
+    }).then((result) => {
+        if (result) {
+            if (result.data.success) dispatch(setDeposits(result.data.data));
+        }
+    });
+}
+
 axios.interceptors.request.use(function (config) {
-    console.log(config);
-    dispatch(setLoading(true))
     return config;
 }, function (error) {
     return Promise.reject(error);
 });
 
 axios.interceptors.response.use(function (response) {
-    console.log(response);
     if (response.data.error) {
         switch (response.data.error) {
             case "user-not-found":
@@ -74,7 +85,7 @@ axios.interceptors.response.use(function (response) {
                     content: "That user was not found, please try again."
                 };
 
-                dispatch(addNotification({notification: no_user, closeAfter: 5}))
+                dispatch(addNotification({ notification: no_user, closeAfter: 5 }))
                 break;
             case "password-mismatch":
                 let password_mismatch = {
@@ -82,7 +93,7 @@ axios.interceptors.response.use(function (response) {
                     content: "Incorrect password, please try again."
                 };
 
-                dispatch(addNotification({notification: password_mismatch, closeAfter: 5}))
+                dispatch(addNotification({ notification: password_mismatch, closeAfter: 5 }))
                 break;
             case "authentication-error":
                 let authentication_error = {
@@ -90,7 +101,7 @@ axios.interceptors.response.use(function (response) {
                     content: "Failed to authenticate."
                 };
 
-                dispatch(addNotification({notification: authentication_error, closeAfter: 5}))
+                dispatch(addNotification({ notification: authentication_error, closeAfter: 5 }))
                 break;
             case "unauthorized":
                 let unauthorized = {
@@ -98,13 +109,12 @@ axios.interceptors.response.use(function (response) {
                     content: "You are not allowed to do that."
                 }
 
-                dispatch(addNotification({notification: unauthorized, closeAfter: 5}))
+                dispatch(addNotification({ notification: unauthorized, closeAfter: 5 }))
                 break;
             default:
                 break;
         }
     }
-    dispatch(setLoading(false))
     return response;
 }, function (error) {
     if (error.response) {
@@ -112,6 +122,7 @@ axios.interceptors.response.use(function (response) {
             dispatch(setUser({}));
             dispatch(setCollectors([]));
             dispatch(setItems([]));
+            dispatch(setDeposits([]));
         }
     }
 
@@ -128,4 +139,5 @@ export {
     API_URL,
     fetchCollectors,
     fetchItems,
+    fetchDeposits,
 };

@@ -1,9 +1,11 @@
 import React, {useState} from "react";
+
 import {useDispatch} from "react-redux";
+
 import {Route} from "react-router";
+
 import {API_URL, axios} from "../utils";
 import {setUser} from "../slices/user.slice.js";
-
 import "../styles/auth.scss";
 import "../styles/global.scss";
 

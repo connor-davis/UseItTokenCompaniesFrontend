@@ -1,10 +1,12 @@
 import React from "react";
 
 import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
-import {MdDelete, MdEdit} from "react-icons/md";
-import {API_URL, axios, fetchItems} from "../utils";
 
+import {Link} from "react-router-dom";
+
+import {MdDelete, MdEdit} from "react-icons/md";
+
+import {API_URL, axios, fetchItems} from "../utils";
 import {selectItems} from "../slices/items.slice";
 import {selectUser} from "../slices/user.slice.js";
 
@@ -30,7 +32,7 @@ function ItemsPage() {
 
                 <div className="header-block">
                     <Link to="/createItem">
-                        <button>Create Item</button>
+                        <button>Create</button>
                     </Link>
                 </div>
             </div>

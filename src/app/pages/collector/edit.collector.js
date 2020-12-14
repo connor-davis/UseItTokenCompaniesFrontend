@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 
 import {useSelector} from "react-redux";
+
 import {Link} from "react-router-dom";
-import {API_URL, axios, fetchCollectors} from "../../utils";
 
-import {selectUser} from "../../slices/user.slice.js";
-
-import "../../styles/global.scss";
-import {selectCollectors} from "../../slices/collector.slice";
 import LoadingPage from "../loading.page";
+import {API_URL, axios, fetchCollectors} from "../../utils";
+import {selectCollectors} from "../../slices/collector.slice";
+import {selectUser} from "../../slices/user.slice.js";
+import "../../styles/global.scss";
 
 function EditCollector({match, history}) {
     let [name, setName] = useState("");
@@ -37,7 +37,7 @@ function EditCollector({match, history}) {
     }, [uid, collectors]);
 
     function editCollector() {
-        axios.put(API_URL + "/collector/" + uid, {name, email, phoneNumber}, {
+        axios.put(API_URL + "/collector/" + uid, {name, email, phoneNumber, accountNumber, branchCode}, {
             headers: {
                 "Authorization": "Bearer " + user.token,
             },

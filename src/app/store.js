@@ -3,17 +3,19 @@ import {combineReducers, configureStore, getDefaultMiddleware} from "@reduxjs/to
 import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import {collectorsSlice} from "./slices/collector.slice";
+import {depositsSlice} from "./slices/deposits.slice";
 import {itemsSlice} from "./slices/items.slice";
-import {userSlice} from "./slices/user.slice.js";
 import {loadingSlice} from "./slices/loading.slice";
 import {notificationsSlice} from "./slices/notifications.slice";
-import {collectorsSlice} from "./slices/collector.slice";
+import {userSlice} from "./slices/user.slice.js";
 
 let userReducer = userSlice.reducer;
 let collectorsReducer = collectorsSlice.reducer;
 let itemsReducer = itemsSlice.reducer;
 let loadingReducer = loadingSlice.reducer;
 let notificationsReducer = notificationsSlice.reducer;
+let depositsReducer = depositsSlice.reducer;
 
 function loggerMiddleware(store) {
     return function (next) {
@@ -35,8 +37,9 @@ const rootReducer = combineReducers({
     collectorsReducer,
     itemsReducer,
     loadingReducer,
-    notificationsReducer
-})
+    notificationsReducer,
+    depositsReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
