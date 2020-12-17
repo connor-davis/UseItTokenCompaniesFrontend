@@ -28,7 +28,7 @@
 
 <div style="display: flex; align-items: center">
 
-  <img src="https://img.shields.io/github/languages/top/connor-davis/UseItTokenAdminFrontend?color=gold&logo=github&logoColor=gold&style=for-the-badge" alt="top-language" />
-  <img src="https://img.shields.io/github/repo-size/connor-davis/UseItTokenAdminFrontend?color=gold&logo=github&logoColor=gold&style=for-the-badge" alt="repo-size" />
+  <img src="https://img.shields.io/github/languages/top/connor-davis/UseItTokenCompaniesFrontend?color=gold&logo=github&logoColor=gold&style=for-the-badge" alt="top-language" />
+  <img src="https://img.shields.io/github/repo-size/connor-davis/UseItTokenCompaniesFrontend?color=gold&logo=github&logoColor=gold&style=for-the-badge" alt="repo-size" />
 
 </div>
